@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { UserService } from './service/user.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +9,18 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'PlagiotronFrontEnd';
+  constructor(private service: UserService, private router: Router ){
+
+  }
+
+ showNav(){
+   return this.service.IsLoggedIn();
+ }
+ userLoggedIn(){
+   return this.service.IsLoggedIn();
+ }
+ Logout(){
+  this.service.logout();
+ this.router.navigate(['login']);
+ }
 }

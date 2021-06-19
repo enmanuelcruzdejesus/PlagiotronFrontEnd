@@ -17,6 +17,16 @@ import { EditAssignmentComponent } from './assignment/edit-assignment.component'
 import { AssignmentSubmissionListComponent } from './assignment/assignment-submission-list.component';
 import { SimilaritySubmissionReportComponent } from './assignment/similarity-submission-report.component';
 
+
+import { AngularFireModule } from '@angular/fire';
+import {AngularFireDatabaseModule } from '@angular/fire/database'
+import {AngularFireAuthModule} from '@angular/fire/auth'
+import { environment } from 'src/environments/environment';
+
+import {FormsModule} from '@angular/forms';
+import { UserService } from './service/user.service';
+import { AuthGuard } from './service/auth.guard';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,9 +46,14 @@ import { SimilaritySubmissionReportComponent } from './assignment/similarity-sub
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireDatabaseModule,
+    AngularFireAuthModule,
+    FormsModule
+
   ],
-  providers: [],
+  providers: [UserService,AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

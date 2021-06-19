@@ -1,1 +1,34 @@
-<p>user-registration works!</p>
+
+<div class="container">
+  <h1>Sign Up Page</h1>
+  <form action="" method="POST">
+
+
+      <div class="form-group">
+          <label for="email" class="control-label">Email</label>
+          <input type="email" id="email" class="col-md-5 form-control" name="email" [(ngModel)]="user.email">
+       </div>
+
+      <div class="form-group">
+         <label for="password" class="control-label">Password</label>
+         <input type="password" id="password" name="password"   [(ngModel)] = "user.password" class="col-md-5 form-control" >
+      </div>
+
+      <div class="form-group">
+        <label for="role" class="control-label">Role</label>
+        <select id="role" name="rol" class="form-control col-md-5" [(ngModel)] ="user.role">
+            <option value="Professor" selected>Professor</option>
+            <option value="Student">Student</option>
+        </select>
+     </div>
+
+
+
+      <div class="panel-footer">
+         <button class="btn btn-primary" (click)="signUp()">Sign Up</button>
+      </div>
+
+
+
+ </form>
+</div>

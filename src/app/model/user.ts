@@ -1,6 +1,10 @@
 export class User{
-  userid: number = 0;
-  usernama: string = "";
-  role: string = "";
-  status: string ="";
+  public key: string ="";
+  public userid?: string | null | undefined;;
+   public password: string = "";
+  public email: string  = "";
+   public firstname?: string | null | undefined;
+   public lastname?:string | null | undefined;;
+   public role?: string | null | undefined;;
+    public active?: number =1;
 }

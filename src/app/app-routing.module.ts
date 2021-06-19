@@ -11,13 +11,13 @@ import { EditClassComponent } from './class/edit-class.component';
 import { UserClassListComponent } from './class/user-class-list.component';
 import { UserLoginComponent } from './user/user-login.component';
 import { UserRegistrationComponent } from './user/user-registration.component';
-
+import { AuthGuard } from './service/auth.guard';
 const routes: Routes =
 [
   {path: '' , redirectTo: "/user-class-list" , pathMatch: 'full'},
   {path:'login' , component: UserLoginComponent},
   {path:'register' , component: UserRegistrationComponent},
-  {path:'user-class-list' , component: UserClassListComponent},
+  {path:'user-class-list' , component: UserClassListComponent,canActivate:[AuthGuard]},
   {path:'class-assignment-list/:id' , component: ClassAssignmentListComponent},
   {path:'class-list' , component: ClassListComponent},
   {path:'create-class' , component: CreateClassComponent},
