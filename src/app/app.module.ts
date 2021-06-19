@@ -10,11 +10,12 @@ import { UserLoginComponent } from './user/user-login.component';
 import { UserRegistrationComponent } from './user/user-registration.component';
 import { StudentClassListComponent } from './enrollment/student-class-list.component';
 import { ProfessorClassListComponent } from './enrollment/professor-class-list.component';
-import { CreateAssignmentComponent } from './assigment/create-assignment.component';
-import { EditAssignmentComponent } from './assigment/edit-assignment.component';
-import { AssigmentListComponent } from './class/assigment-list.component';
-import { AssigmentSubmssionListComponent } from './assigment/assigment-submssion-list.component';
-import { AssigmentSubmissionSimilarityComponent } from './assigment/assigment-submission-similarity.component';
+import { UserClassListComponent } from './class/user-class-list.component';
+import { ClassAssignmentListComponent } from './class/class-assignment-list.component';
+import { CreateAssignmentComponent } from './assignment/create-assignment.component';
+import { EditAssignmentComponent } from './assignment/edit-assignment.component';
+import { AssignmentSubmissionListComponent } from './assignment/assignment-submission-list.component';
+import { SimilaritySubmissionReportComponent } from './assignment/similarity-submission-report.component';
 
 @NgModule({
   declarations: [
@@ -26,11 +27,12 @@ import { AssigmentSubmissionSimilarityComponent } from './assigment/assigment-su
     UserRegistrationComponent,
     StudentClassListComponent,
     ProfessorClassListComponent,
+    UserClassListComponent,
+    ClassAssignmentListComponent,
     CreateAssignmentComponent,
     EditAssignmentComponent,
-    AssigmentListComponent,
-    AssigmentSubmssionListComponent,
-    AssigmentSubmissionSimilarityComponent
+    AssignmentSubmissionListComponent,
+    SimilaritySubmissionReportComponent
   ],
   imports: [
     BrowserModule,
