@@ -8,8 +8,6 @@ import { CreateClassComponent } from './class/create-class.component';
 import { EditClassComponent } from './class/edit-class.component';
 import { UserLoginComponent } from './user/user-login.component';
 import { UserRegistrationComponent } from './user/user-registration.component';
-import { StudentViewComponent } from './assignment/student-view.component';
-import { ProfessorViewComponent } from './assignment/professor-view.component';
 import { StudentClassListComponent } from './enrollment/student-class-list.component';
 import { ProfessorClassListComponent } from './enrollment/professor-class-list.component';
 import { CreateAssignmentComponent } from './assigment/create-assignment.component';
@@ -26,8 +24,6 @@ import { AssigmentSubmissionSimilarityComponent } from './assigment/assigment-su
     EditClassComponent,
     UserLoginComponent,
     UserRegistrationComponent,
-    StudentViewComponent,
-    ProfessorViewComponent,
     StudentClassListComponent,
     ProfessorClassListComponent,
     CreateAssignmentComponent,
