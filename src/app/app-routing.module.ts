@@ -21,7 +21,7 @@ const routes: Routes =
   {path:'class-assignment-list/:id' , component: ClassAssignmentListComponent},
   {path:'class-list' , component: ClassListComponent},
   {path:'create-class' , component: CreateClassComponent},
-  {path:'edit-class/:id' , component: EditClassComponent},
+  {path:'edit-class' , component: EditClassComponent},
   {path:'create-assignment' , component: CreateAssignmentComponent},
   {path:'edit-assignment/:id' , component: EditAssignmentComponent},
   {path:'assignment-submission-list/:id' , component: AssignmentSubmissionListComponent},

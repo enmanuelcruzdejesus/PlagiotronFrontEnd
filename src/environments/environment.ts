@@ -3,7 +3,17 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  firebase: {
+    apiKey: "AIzaSyATmaWA9ILF0MZjRr2HXycbpDfc753I7Io",
+    authDomain: "plagiotrondb.firebaseapp.com",
+    databaseURL: "https://plagiotrondb-default-rtdb.firebaseio.com",
+    projectId: "plagiotrondb",
+    storageBucket: "plagiotrondb.appspot.com",
+    messagingSenderId: "673181116989",
+    appId: "1:673181116989:web:efc0a728e50ab330971854",
+    measurementId: "G-91V3EH47XB"
+  }
 };
 
 /*

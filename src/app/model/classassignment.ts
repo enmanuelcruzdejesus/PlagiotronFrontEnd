@@ -4,6 +4,5 @@ export class ClassAssigment{
   classid: number = 0;
   assigmentid: number = 0;
   createdby: string ="";
-  created: Date = new Date();
-
+  created: string = "";
 }

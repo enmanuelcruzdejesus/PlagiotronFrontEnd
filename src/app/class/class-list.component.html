@@ -1,1 +1,43 @@
-<p>class-list works!</p>
+<div  class="bg-container" style="position: relative;">
+  <hr>
+  <div  class="mainmenu container">
+      <div class="leftmenu">
+          <input id="search" #search placeholder="Search" [(ngModel)] = "searchTerm" type="text" (keyup.enter)="Filter(search.value)" >
+          <button id="buttonSearch" (click)= "Filter(search.value)" >Search</button>
+      </div>
+      <div class="rightmenu">
+          <button id="postContactButton"  class="btn btn-success btn-md" (click)="create()" >Add new Record</button>
+      </div>
+  </div>
+   <div  class="container" style="position: relative;">
+      <h2><b>Classes</b></h2>
+      <table class="table">
+          <thead>
+              <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">Class Name</th>
+                  <th scope="col">SubjectArea</th>
+                  <th scope="col">Status</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr  *ngFor="let cl of cs ">
+                  <td>{{cl.classid}}</td>
+                  <td>{{cl.classname}}</td>
+                  <td>{{cl.subjectarea}}</td>
+                  <td>{{cl.status}}</td>
+                  <td>
+                      <button class="btn btn-warning bt-sm" (click)="update(cl)">Update</button>
+                  </td>
+                  <td>
+                      <button class="btn btn-danger bt-sm" (click)="delete(cl)">Delete</button>
+                  </td>
+              </tr>
+
+          </tbody>
+      </table>
+   </div>
+
+
+</div>
+

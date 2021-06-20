@@ -1,1 +1,21 @@
-<p>create-class works!</p>
+<div class="container">
+  <h1>Class Form</h1>
+  <form action="" method="POST" >
+      <div class="form-group">
+          <label for="classname" class="control-label">Class Name</label>
+          <input type="text" id="classname" name="classname" [(ngModel)] = "c.classname" class="col-md-5 form-control" required>
+      </div>
+
+      <div class="form-group">
+          <label for="subjectarea" class="control-label">SubjectArea</label>
+          <input type="text" id="subjectarea" name="subjectarea" [(ngModel)] = "c.subjectarea" class="col-md-5 form-control" required>
+      </div>
+
+
+      <div class="panel-footer">
+          <button class="btn btn-warning" (click)="cancelPost()">Cancel</button>
+          <button class="btn btn-primary" (click)="save()">Save</button>
+      </div>
+
+  </form>
+</div>

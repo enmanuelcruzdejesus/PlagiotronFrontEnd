@@ -12,6 +12,8 @@ export class UserService {
 
   private  users: AngularFireList<User>;
 
+  private currentUser : User = new User();
+
   private isLoggedIn :boolean  = false;
   constructor(private firebaseAuth : AngularFireAuth, private db: AngularFireDatabase ) {
       this.users = this.db.list(this.dbPath);
@@ -28,11 +30,19 @@ export class UserService {
 
   }
 
+
+  getCurrentUser(): User{
+
+    return this.currentUser;
+
+  }
+
   async login(email: string, password: string){
     await this.firebaseAuth.signInWithEmailAndPassword(email,password).then(res=>{
       this.isLoggedIn = true;
       console.log(res);
       localStorage.setItem('user',JSON.stringify(res.user));
+
 
     });
   }
@@ -45,6 +55,7 @@ export class UserService {
       u.email = user.email;
       u.password =  "";
       u.role = user.role;
+      this.currentUser = u;
       this.create(u).then((t) =>{ console.log(t)}).catch((error)=>
       {
         console.error(error)

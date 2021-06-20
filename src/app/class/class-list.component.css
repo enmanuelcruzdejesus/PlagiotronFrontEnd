@@ -1,0 +1,20 @@
+.mainmenu .leftmenu{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.leftmenu button {
+  margin-left: 10px;
+}
+
+.rightmenu button {
+  margin-left: 10px;
+}
+
+.mainmenu .rightmenu{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+
+}

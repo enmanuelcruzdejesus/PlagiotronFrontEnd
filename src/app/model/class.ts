@@ -1,9 +1,13 @@
 export class Class{
+
+  constructor(){
+
+  }
   public key: string = "";
-  classid: number = 0;
+  classid: string = "";
   classname: string = "";
   subjectarea: string = "";
   status: string = "";
-  created: Date = new Date();
+  created: string ="";
 
 }
