@@ -23,9 +23,12 @@ import {AngularFireDatabaseModule } from '@angular/fire/database'
 import {AngularFireAuthModule} from '@angular/fire/auth'
 import { environment } from 'src/environments/environment';
 
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { UserService } from './service/user.service';
 import { AuthGuard } from './service/auth.guard';
+
+import {HttpClientModule} from '@angular/common/http';
+
 
 @NgModule({
   declarations: [
@@ -50,7 +53,9 @@ import { AuthGuard } from './service/auth.guard';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule
 
   ],
   providers: [UserService,AuthGuard],

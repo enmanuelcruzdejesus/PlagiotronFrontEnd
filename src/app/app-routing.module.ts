@@ -23,7 +23,7 @@ const routes: Routes =
   {path:'create-class' , component: CreateClassComponent},
   {path:'edit-class' , component: EditClassComponent},
   {path:'create-assignment' , component: CreateAssignmentComponent},
-  {path:'edit-assignment/:id' , component: EditAssignmentComponent},
+  {path:'edit-assignment' , component: EditAssignmentComponent},
   {path:'assignment-submission-list/:id' , component: AssignmentSubmissionListComponent},
   {path:'similarity-submission-report/:id' , component: SimilaritySubmissionReportComponent}
 

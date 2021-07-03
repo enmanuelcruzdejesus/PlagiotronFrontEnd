@@ -1,1 +1,19 @@
-<p>edit-assignment works!</p>
+<div class="container">
+  <h1>Assignment Week #1</h1>
+  <form action="" method="POST" [formGroup]="form">
+
+      <div class="form-group">
+          <label for="file" class="control-label">Add File: </label>
+          <input id="file" name="logo" type="file" formControlName="logo" (change)="uploadFile($event)">
+      </div>
+
+
+
+      <div class="panel-footer">
+          <button class="btn btn-primary" (click)="postSubmission()">Post</button>
+      </div>
+
+
+
+  </form>
+</div>
