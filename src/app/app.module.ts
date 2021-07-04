@@ -17,6 +17,8 @@ import { EditAssignmentComponent } from './assignment/edit-assignment.component'
 import { AssignmentSubmissionListComponent } from './assignment/assignment-submission-list.component';
 import { SimilaritySubmissionReportComponent } from './assignment/similarity-submission-report.component';
 
+ import {MatInputModule} from '@angular/material/input';
+
 
 import { AngularFireModule } from '@angular/fire';
 import {AngularFireDatabaseModule } from '@angular/fire/database'
@@ -28,6 +30,7 @@ import { UserService } from './service/user.service';
 import { AuthGuard } from './service/auth.guard';
 
 import {HttpClientModule} from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -55,7 +58,9 @@ import {HttpClientModule} from '@angular/common/http';
     AngularFireAuthModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatInputModule
 
   ],
   providers: [UserService,AuthGuard],

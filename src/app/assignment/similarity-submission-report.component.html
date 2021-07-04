@@ -1,1 +1,56 @@
-<p>similarity-submission-report works!</p>
+<h1>Similarity Results</h1>
+
+<div  class="container">
+  <div class="row">
+    <div class="col-sm" >
+      <h3>File1</h3>
+      <textarea [value]="docText" id="docText" cols="50" rows="10"></textarea>
+    </div>
+    <div class="col-sm ">
+      <h3>File2</h3>
+      <textarea [value]="selectedDocTxt" name="selectedDocTxt" id="selectedDocTxt" cols="50" rows="10"></textarea>
+
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <div style="margin-top: 10px;">
+        <h2><b>Similar Documents</b></h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Document Title</th>
+                    <th scope="col">Similarity Score</th>
+                </tr>
+            </thead>
+            <tbody>
+              <tr  *ngFor="let s of similarityResult.docs">
+                <td>{{s.doc_id}}</td>
+                <td>{{s.doc_title}}</td>
+                <td>{{s.score}}</td>
+            </tr>
+              <!-- <tr>
+                <td></td>
+                <td>Doc1</td>
+                <td>0.7</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>Doc2</td>
+                <td>0.8</td>
+              </tr> -->
+
+
+            </tbody>
+
+        </table>
+       </div>
+    </div>
+
+  </div>
+
+
+</div>
+

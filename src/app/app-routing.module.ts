@@ -25,7 +25,7 @@ const routes: Routes =
   {path:'create-assignment' , component: CreateAssignmentComponent},
   {path:'edit-assignment' , component: EditAssignmentComponent},
   {path:'assignment-submission-list/:id' , component: AssignmentSubmissionListComponent},
-  {path:'similarity-submission-report/:id' , component: SimilaritySubmissionReportComponent}
+  {path:'similarity-submission-report' , component: SimilaritySubmissionReportComponent}
 
 
 ];

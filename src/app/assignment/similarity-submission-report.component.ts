@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { AssignmentSubmissionService } from '../service/assignment-submission.service';
+import { FormGroup, FormControl } from '@angular/forms';
+import {MatInputModule} from '@angular/material/input';
+
+
 
 @Component({
   selector: 'app-similarity-submission-report',
@@ -7,9 +12,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SimilaritySubmissionReportComponent implements OnInit {
 
-  constructor() { }
+  docText: string = "hello";
+  similarityResult : any;
+  docFile: string = "orig_taske.txt";
+  selectedDocTxt: string= "";
+
+  constructor(private service: AssignmentSubmissionService) { }
 
   ngOnInit(): void {
+
+    this.service.getdocumentContent(this.docFile).subscribe((res: any)=>
+    {
+       this.docText = res.content;
+        console.log(res);
+
+    });
+
+    this.service.getSubmissionSimilarity(this.docFile).subscribe((res)=>{
+      this.similarityResult = res;
+      this.selectedDocTxt = res.docs[0].doc_content;
+
+    });
+
   }
 
 }
