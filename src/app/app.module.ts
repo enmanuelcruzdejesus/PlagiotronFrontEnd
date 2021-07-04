@@ -32,6 +32,9 @@ import { AuthGuard } from './service/auth.guard';
 import {HttpClientModule} from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { RichTextEditorModule } from '@syncfusion/ej2-angular-richtexteditor';
+
+
 
 @NgModule({
   declarations: [
@@ -60,7 +63,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MatInputModule
+    MatInputModule,
+    RichTextEditorModule
 
   ],
   providers: [UserService,AuthGuard],

@@ -1,15 +1,31 @@
 <h1>Similarity Results</h1>
 
+
 <div  class="container">
   <div class="row">
+    <div class="col-md-2" style="padding-bottom: 20px;">
+      <div class="form-group">
+        <label for="selectedFile" class="control-label">Select Document:</label>
+        <select id="selectedFile" name="selectedFile" class="col-md-5 form-control" [(ngModel)] = "selectedFile"
+        #t (change)="onChange(t.selectedIndex)"
+        >
+            <option *ngFor = "let val of similarityResult.docs" [ngValue]="val.doc_id">{{val.doc_title}}</option>
+        </select>
+     </div>
+    </div>
+
+
+  </div>
+  <div class="row">
+
+
     <div class="col-sm" >
-      <h3>File1</h3>
+      <h3>Uploaded file</h3>
       <textarea [value]="docText" id="docText" cols="50" rows="10"></textarea>
     </div>
     <div class="col-sm ">
-      <h3>File2</h3>
+      <h3>Similar file</h3>
       <textarea [value]="selectedDocTxt" name="selectedDocTxt" id="selectedDocTxt" cols="50" rows="10"></textarea>
-
     </div>
   </div>
 
@@ -31,17 +47,6 @@
                 <td>{{s.doc_title}}</td>
                 <td>{{s.score}}</td>
             </tr>
-              <!-- <tr>
-                <td></td>
-                <td>Doc1</td>
-                <td>0.7</td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>Doc2</td>
-                <td>0.8</td>
-              </tr> -->
-
 
             </tbody>
 
