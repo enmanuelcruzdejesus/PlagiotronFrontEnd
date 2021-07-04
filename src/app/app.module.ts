@@ -32,7 +32,7 @@ import { AuthGuard } from './service/auth.guard';
 import {HttpClientModule} from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { RichTextEditorModule } from '@syncfusion/ej2-angular-richtexteditor';
+import { AngularEditorModule } from '@kolkov/angular-editor';
 
 
 
@@ -64,7 +64,7 @@ import { RichTextEditorModule } from '@syncfusion/ej2-angular-richtexteditor';
     HttpClientModule,
     BrowserAnimationsModule,
     MatInputModule,
-    RichTextEditorModule
+    AngularEditorModule
 
   ],
   providers: [UserService,AuthGuard],

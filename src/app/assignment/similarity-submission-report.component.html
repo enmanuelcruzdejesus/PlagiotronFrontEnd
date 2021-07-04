@@ -21,11 +21,15 @@
 
     <div class="col-sm" >
       <h3>Uploaded file</h3>
-      <textarea [value]="docText" id="docText" cols="50" rows="10"></textarea>
+      <angular-editor [(ngModel)] = "docText"  [config]="editorConfig"></angular-editor>
+
+      <!-- <textarea [value]="docText" id="docText" cols="50" rows="10"></textarea> -->
     </div>
     <div class="col-sm ">
       <h3>Similar file</h3>
-      <textarea [value]="selectedDocTxt" name="selectedDocTxt" id="selectedDocTxt" cols="50" rows="10"></textarea>
+      <angular-editor id="selectedDocTxt" [(ngModel)] = "selectedDocTxt"  [config]="editorConfig"></angular-editor>
+
+      <!-- <textarea [value]="selectedDocTxt" name="selectedDocTxt" id="selectedDocTxt" cols="50" rows="10"></textarea> -->
     </div>
   </div>
 
