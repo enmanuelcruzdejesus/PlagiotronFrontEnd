@@ -94,27 +94,78 @@ export class SimilaritySubmissionReportComponent implements OnInit {
     console.log(event);
     var x  = this.similarityResult.docs[index].doc_content;
     this.selectedDocTxt = x;
-    var similar_s =   this.similarityResult.docs[index].similar_sentences
+    var similar_sentences = this.similarityResult.docs[index].similar_sentences;
     var splitSelectedDocText = this.selectedDocTxt.split(".");
-    console.log(splitSelectedDocText);
     let result = "";
 
-    //highligthing similar words in red
-    // console.log(x.similar_sentences);
-    for(let i =0; i <  splitSelectedDocText.length; i++){
+    console.log(splitSelectedDocText);
 
-       if(splitSelectedDocText[i] === similar_s[i]){
-         result =  result + "<p><b>"+splitSelectedDocText[i]+"</b></p>"
-       }
-       else{
-         result =  result + "<p>"+splitSelectedDocText[i]+"</p>"
-      }
+    //repo document
+    outer_loop:
+    for(let i =0; i< splitSelectedDocText.length; i++){
+        var element = splitSelectedDocText[i];
+
+        for(let x =0; x < similar_sentences.length; x++){
+          var s = similar_sentences[x].r_sentence;
+
+
+          if(element === s){
+                 result =  result + "<p><b>"+element+"</b></p>"
+                 continue outer_loop;
+               }
+
+        }
+        result =  result + "<p>"+element+"</p>"
 
     }
-    console.log(result);
-    this.selectedDocTxt = "";
 
-    this.selectedDocTxt  = result;
+    this.selectedDocTxt = result;
+
+    //for doc text
+    var splitDocText = this.docText.split(".");
+    var result2 = "";
+
+    outer2_loop:
+    for(let i =0; i< splitDocText.length; i++){
+        var element = splitDocText[i];
+
+        for(let x =0; x < similar_sentences.length; x++){
+          var s = similar_sentences[x].u_sentence;
+
+
+          if(element === s){
+            result2 =  result2 + "<p><b>"+element+"</b></p>"
+                 continue outer2_loop;
+               }
+
+        }
+        result2 =  result2 + "<p>"+element+"</p>"
+
+    }
+    this.docText = result2;
+
+
+    // var similar_s =   this.similarityResult.docs[index].similar_sentences
+    // var splitSelectedDocText = this.selectedDocTxt.split(".");
+    // console.log(splitSelectedDocText);
+    // let result = "";
+
+    // //highligthing similar words in red
+    // // console.log(x.similar_sentences);
+    // for(let i =0; i <  splitSelectedDocText.length; i++){
+
+    //    if(splitSelectedDocText[i] === similar_s[i]){
+    //      result =  result + "<p><b>"+splitSelectedDocText[i]+"</b></p>"
+    //    }
+    //    else{
+    //      result =  result + "<p>"+splitSelectedDocText[i]+"</p>"
+    //   }
+
+    // }
+    // console.log(result);
+    // this.selectedDocTxt = "";
+
+    // this.selectedDocTxt  = result;
 
 
 
