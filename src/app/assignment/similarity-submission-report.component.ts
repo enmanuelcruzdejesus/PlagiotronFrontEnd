@@ -68,6 +68,9 @@ export class SimilaritySubmissionReportComponent implements OnInit {
     ]
 };
 
+ random_color_doc: string[] = [];
+ splitDocText : string[] = []
+
 
 
   constructor(private service: AssignmentSubmissionService) { }
@@ -85,7 +88,67 @@ export class SimilaritySubmissionReportComponent implements OnInit {
       this.similarityResult = res;
       this.selectedDocTxt = res.docs[0].doc_content;
 
+      for(let i =0; i< this.similarityResult.docs.length; i++){
+        this.random_color_doc.push(this.getRandomColor());
+      }
+
+      this.splitDocText =  this.docText.split(".");
+
+      this.matchedSentences();
+
+
     });
+
+
+
+
+  }
+
+  matchedSentences(){
+     //for doc text
+
+     var result = "";
+     var docs = this.similarityResult.docs;
+     var found  = 0;
+
+
+
+     outer_loop:
+     for(let i =0; i<  this.splitDocText.length; i++){
+         var element = this.splitDocText[i];
+
+
+         //getting all similar sentences from all docs
+         for(let d = 0; d < docs.length; d++){
+           //getting similar setences from the current doc
+            var similar_sentences =  docs[d].similar_sentences;
+
+            //getting the color of document
+            var doc_color = this.random_color_doc[d];
+
+            //searching for the matched sentences of current doc
+            for(let x =0; x < similar_sentences.length; x++){
+              var s = similar_sentences[x].u_sentence;
+
+              if(element === s){
+                result =  result + "<p><span style='color: "+doc_color+";'>"+element+"</span></p>"
+
+                    continue outer_loop;
+                  }
+
+            }
+
+
+         }
+
+
+         result =  result + "<p>"+element+"</p>"
+
+       }
+       this.docText = result;
+
+
+
 
   }
 
@@ -98,7 +161,9 @@ export class SimilaritySubmissionReportComponent implements OnInit {
     var splitSelectedDocText = this.selectedDocTxt.split(".");
     let result = "";
 
-    console.log(splitSelectedDocText);
+
+    var doc_color = this.random_color_doc[index];
+
 
     //repo document
     outer_loop:
@@ -110,7 +175,9 @@ export class SimilaritySubmissionReportComponent implements OnInit {
 
 
           if(element === s){
-                 result =  result + "<p><b>"+element+"</b></p>"
+                 result =  result + "<p><span style='color: "+doc_color+";'>"+element+"</span></p>"
+                // result =  result + "<p><style ='color: red';>"+element+"</span></p>"
+
                  continue outer_loop;
                }
 
@@ -121,54 +188,17 @@ export class SimilaritySubmissionReportComponent implements OnInit {
 
     this.selectedDocTxt = result;
 
-    //for doc text
-    var splitDocText = this.docText.split(".");
-    var result2 = "";
 
-    outer2_loop:
-    for(let i =0; i< splitDocText.length; i++){
-        var element = splitDocText[i];
-
-        for(let x =0; x < similar_sentences.length; x++){
-          var s = similar_sentences[x].u_sentence;
+  }
 
 
-          if(element === s){
-            result2 =  result2 + "<p><b>"+element+"</b></p>"
-                 continue outer2_loop;
-               }
-
-        }
-        result2 =  result2 + "<p>"+element+"</p>"
-
+   getRandomColor() {
+    var letters = '0123456789ABCDEF';
+    var color = '#';
+    for (var i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
     }
-    this.docText = result2;
-
-
-    // var similar_s =   this.similarityResult.docs[index].similar_sentences
-    // var splitSelectedDocText = this.selectedDocTxt.split(".");
-    // console.log(splitSelectedDocText);
-    // let result = "";
-
-    // //highligthing similar words in red
-    // // console.log(x.similar_sentences);
-    // for(let i =0; i <  splitSelectedDocText.length; i++){
-
-    //    if(splitSelectedDocText[i] === similar_s[i]){
-    //      result =  result + "<p><b>"+splitSelectedDocText[i]+"</b></p>"
-    //    }
-    //    else{
-    //      result =  result + "<p>"+splitSelectedDocText[i]+"</p>"
-    //   }
-
-    // }
-    // console.log(result);
-    // this.selectedDocTxt = "";
-
-    // this.selectedDocTxt  = result;
-
-
-
+    return color;
   }
 
 }
