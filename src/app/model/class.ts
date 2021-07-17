@@ -4,7 +4,7 @@ export class Class{
 
   }
   public key: string = "";
-  classid: string = "";
+  classid: number = 0;
   classname: string = "";
   subjectarea: string = "";
   status: string = "";

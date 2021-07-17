@@ -20,11 +20,9 @@ export class ClassassignmentService {
 
   }
 
-  getByClass(classid: string): AngularFireList<any>{
+  getByClass2(classid: number): AngularFireList<any>{
 
     return this.db.list(this.dbPath,ref => ref.orderByChild('classid').equalTo(classid));
   }
-
-
 
 }

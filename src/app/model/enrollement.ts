@@ -1,7 +1,7 @@
 export class Enrollment{
 
   enrollmentid: string;
-  classid: string;
+  classid: number;
   studentid: string;
   userid: string;
   created: Date;

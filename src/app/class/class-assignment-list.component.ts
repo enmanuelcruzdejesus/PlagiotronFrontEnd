@@ -15,7 +15,9 @@ import { Class } from '../model/class';
 export class ClassAssignmentListComponent implements OnInit {
 
   clsa : ClassAssigment[] = [];
+  fclsa: ClassAssigment[] = [];
   assigments: Assignment[] = [];
+  fassignments : Assignment[] = []
   current_class : string;
   c: Class ;
 
@@ -29,40 +31,21 @@ export class ClassAssignmentListComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
 
       this.current_class = params["classid"];
-      console.log(this.current_class);
 
-      this.service.getAll().snapshotChanges().pipe(
-        map(changes =>
-          changes.map(c =>
-            ({ key: c.payload.key, ...c.payload.val() })
-          )
-        )
-      ).subscribe(data => {
-          this.clsa = data;
-          console.log(this.clsa);
-      });
+     });
+     var x = Number(this.current_class);
+     this.getAssignmentByClass(x);
+     this.getAllAssignments();
 
 
 
-      // this.c.classid = params["classid"];
-      // this.c.classname = params["classname"];
-      // this.c.subjectarea = params["subjectarea"];
-      // this.c.created = params["created"];
-
-      // this.current_class = this.c.classid;
-
-      // console.log(this.current_class);
-
-      // this.getAssignmentByClass(this.);
-
-  });
 
 
 
   }
 
-  getAssignmentByClass(value: string) {
-    this.service.getByClass(value).snapshotChanges().pipe(
+  getAssignmentByClass(value: number) {
+    this.service.getByClass2(value).snapshotChanges().pipe(
       map(changes =>
         changes.map(c =>
           ({ key: c.payload.key, ...c.payload.val() })
@@ -70,9 +53,36 @@ export class ClassAssignmentListComponent implements OnInit {
       )
     ).subscribe(data => {
         this.clsa = data;
-        console.log(this.clsa);
+        console.log(data);
     });
   }
+
+  getAllAssignments(){
+    this.aservice.getAll().snapshotChanges().pipe(
+      map(changes =>
+        changes.map(c =>
+          ({ key: c.payload.key, ...c.payload.val() })
+        )
+      )
+    ).subscribe(data => {
+        this.assigments = data;
+        console.log(this.assigments);
+        console.log(this.clsa);
+
+        for(let i =0; i< this.assigments.length; i++){
+           var  a = this.assigments[i];
+           console.log(i);
+           for(let j =0; j < this.clsa.length; j++){
+             var b = this.clsa[j].assignmentid;
+             if(a.assignmentid == b){
+              this.fassignments.push(a);
+             }
+           }
+        }
+
+    });
+  }
+
 
 
 

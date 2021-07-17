@@ -7,7 +7,7 @@ import { Assignment } from '../model/assignment';
 })
 export class AssignmentService {
 
-  private dbPath = "/class"
+  private dbPath = "/assignments"
 
   private  cs : AngularFireList<Assignment>;
 
@@ -21,6 +21,13 @@ export class AssignmentService {
     return this.db.list(this.dbPath);
 
   }
+
+  getById(value: number): AngularFireList<any>{
+
+    return this.db.list(this.dbPath,ref => ref.orderByChild('assignmentid').equalTo(value));
+  }
+
+
 
 
 }

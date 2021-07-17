@@ -12,12 +12,15 @@ import { map } from 'rxjs/operators';
 })
 export class CreateClassComponent implements OnInit {
 
-  cs: Class[] | undefined;
+  cs: Class[] = [];
   c = new Class();
   id : number = 0;
+  records : number;
   constructor(private service: ClassService, private router:Router) { }
 
   ngOnInit(): void {
+    this.get();
+
   }
 
   get() {
@@ -29,10 +32,7 @@ export class CreateClassComponent implements OnInit {
       )
     ).subscribe(data => {
       this.cs = data;
-      console.log("printing");
-      this.id = this.cs.length + 1;
-      this.c.classid  = this.id.toString();
-      console.log(this.id);
+
     });
   }
 
@@ -42,6 +42,8 @@ export class CreateClassComponent implements OnInit {
 
   save(){
     this.c.created = new Date().toLocaleDateString();
+    let id  = this.cs.length + 1;
+    this.c.classid = id;
     this.service.create(this.c);
     this.router.navigate(['']);
   }
