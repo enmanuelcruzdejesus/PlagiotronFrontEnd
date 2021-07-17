@@ -32,8 +32,12 @@ export class UserService {
 
 
   getCurrentUser(): User{
+    var j  = JSON.parse(localStorage.getItem('user'));
+    var u = new User();
+    u.userid =j.uid;
+    u.email = j.email;
 
-    return this.currentUser;
+    return u;
 
   }
 

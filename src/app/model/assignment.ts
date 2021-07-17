@@ -1,4 +1,4 @@
-export class Assigment{
+export class Assignment{
   public key: string = "";
   assignmentid: number = 0;
   description: string = "";

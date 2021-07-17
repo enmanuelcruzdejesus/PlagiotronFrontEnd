@@ -44,6 +44,7 @@ export class ClassService {
     return this.db.list(this.dbPath);
 
   }
+
   getClassByName(value: string): AngularFireList<any>{
 
     return this.db.list(this.dbPath,ref => ref.orderByChild('classname').equalTo(value));

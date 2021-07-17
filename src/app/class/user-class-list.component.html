@@ -1,1 +1,4 @@
 <p>user-class-list works!</p>
+<ul  *ngFor="let c of ucls " >
+  <button (click)="gotoAssignment(c)" >{{c.classname}}</button>
+</ul>
