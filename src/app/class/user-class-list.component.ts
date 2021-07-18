@@ -148,5 +148,13 @@ delete(task: Class) {
   this.cs.delete(task.key);
 }
 
+showPanel(){
+  if(this.currentUser === null || undefined)  return false;
+  if(this.currentUser.role === "Professor")
+   return true;
+  else
+    return false;
+}
+
 
 }

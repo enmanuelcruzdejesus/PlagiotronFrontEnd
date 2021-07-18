@@ -7,6 +7,8 @@ import { map } from 'rxjs/operators';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { Class } from '../model/class';
 import { ClassService } from '../service/class.service';
+import { User } from '../model/user';
+import { UserService } from '../service/user.service';
 
 @Component({
   selector: 'app-class-assignment-list',
@@ -22,9 +24,11 @@ export class ClassAssignmentListComponent implements OnInit {
   current_class : string;
   c: Class ;
   current_assig: Assignment;
+  currentUser: User;
+
   searchTerm: string = "";
 
-  constructor(private service: ClassassignmentService, private aservice: AssignmentService,private clservice: ClassService,private route: ActivatedRoute, private router: Router) {
+  constructor(private service: ClassassignmentService, private aservice: AssignmentService,private uservice: UserService,private clservice: ClassService,private route: ActivatedRoute, private router: Router) {
 
 
 
@@ -41,6 +45,8 @@ export class ClassAssignmentListComponent implements OnInit {
       console.log(this.current_class);
 
      });
+     this.currentUser = this.uservice.getCurrentUser();
+
 
   }
 
@@ -155,5 +161,14 @@ export class ClassAssignmentListComponent implements OnInit {
     this.aservice.delete(task.key);
   }
 
+
+
+  showPanel(){
+    if(this.currentUser === null || undefined)  return false;
+    if(this.currentUser.role === "Professor")
+     return true;
+    else
+      return false;
+  }
 
 }

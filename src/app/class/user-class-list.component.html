@@ -6,7 +6,7 @@
         <input id="search" #search placeholder="Search" [(ngModel)] = "searchTerm" type="text" (keyup.enter)="Filter(search.value)" >
         <button id="buttonSearch" (click)= "Filter(search.value)" >Search</button>
     </div>
-    <div class="rightmenu">
+    <div class="rightmenu" *ngIf="showPanel()">
         <button id="postContactButton"  class="btn btn-success btn-md" (click)="create()" >Add new Record</button>
     </div>
 </div>
@@ -34,9 +34,11 @@
                         <blockquote class="blockquote mb-0">
                           <p></p>
                           <button  class="btn btn-primary bt-sm"  (click)="gotoAssignment(cl)" >Entrar</button>
-                          <button class="btn btn-primary bt-sm"  (click)="update(cl)">Update</button>
-                           <button class="btn btn-danger bt-sm" (click)="delete(cl)">Delete</button>
+                          <div *ngIf="showPanel()">
+                            <button class="btn btn-primary bt-sm"  (click)="update(cl)">Update</button>
+                             <button class="btn btn-danger bt-sm" (click)="delete(cl)">Delete</button>
 
+                          </div>
                         </blockquote>
                       </div>
                 </div>
