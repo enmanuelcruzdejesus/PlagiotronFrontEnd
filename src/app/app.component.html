@@ -1,6 +1,6 @@
 <div>
-  <div class="containter" *ngIf="showNav()">
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark">
+  <div *ngIf="showNav()">
+    <nav class="navbar navbar-expand-lg navbar-dark  bg-dark">
       <a class="navbar-brand"  routerLink="/contacts">PlagioTron App</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -27,7 +27,7 @@
       </div>
     </nav>
   </div>
-  <div style="margin-top: 50px;">
+  <div style="margin-top: 20px;" >
     <router-outlet>
     </router-outlet>
   </div>

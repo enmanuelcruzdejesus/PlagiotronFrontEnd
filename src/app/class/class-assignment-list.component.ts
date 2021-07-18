@@ -4,7 +4,7 @@ import { ClassAssigment } from '../model/classassignment';
 import { AssignmentService } from '../service/assignment.service';
 import { ClassassignmentService } from '../service/classassignment.service';
 import { map } from 'rxjs/operators';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { Class } from '../model/class';
 
 @Component({
@@ -20,6 +20,7 @@ export class ClassAssignmentListComponent implements OnInit {
   fassignments : Assignment[] = []
   current_class : string;
   c: Class ;
+  current_assig: Assignment;
 
   constructor(private service: ClassassignmentService, private aservice: AssignmentService,private route: ActivatedRoute, private router: Router) {
 
@@ -31,11 +32,14 @@ export class ClassAssignmentListComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
 
       this.current_class = params["classid"];
+      var x = Number(this.current_class);
+      this.getAssignmentByClass(x);
+      this.getAllAssignments();
+
+      console.log(this.current_class);
 
      });
-     var x = Number(this.current_class);
-     this.getAssignmentByClass(x);
-     this.getAllAssignments();
+
 
 
 
@@ -53,7 +57,7 @@ export class ClassAssignmentListComponent implements OnInit {
       )
     ).subscribe(data => {
         this.clsa = data;
-        console.log(data);
+        // console.log(data);
     });
   }
 
@@ -66,8 +70,8 @@ export class ClassAssignmentListComponent implements OnInit {
       )
     ).subscribe(data => {
         this.assigments = data;
-        console.log(this.assigments);
-        console.log(this.clsa);
+        // console.log(this.assigments);
+        // console.log(this.clsa);
 
         for(let i =0; i< this.assigments.length; i++){
            var  a = this.assigments[i];
@@ -83,6 +87,37 @@ export class ClassAssignmentListComponent implements OnInit {
     });
   }
 
+
+  gotoEditAsig(c: Assignment){
+    // this.aservice.getById(c.assignmentid).snapshotChanges().pipe(
+    //   map(changes =>
+    //     changes.map(c =>
+    //       ({ key: c.payload.key, ...c.payload.val() })
+    //     )
+    //   )
+    // ).subscribe(data => {
+    //    this.current_assig = data[0];
+    //    console.log(this.current_assig);
+
+
+    // });
+
+      console.log(c);
+      let navigationExtras: NavigationExtras = {
+        queryParams: {
+
+            "assignmentid": c.assignmentid,
+            "title": c.title,
+            "description": c.description,
+            "duedate": c.duedate,
+            "status": c.status
+
+        }
+      };
+
+      this.router.navigate(["edit-assignment"], navigationExtras);
+
+  }
 
 
 

@@ -7,7 +7,8 @@ export class Class{
   classid: number = 0;
   classname: string = "";
   subjectarea: string = "";
-  status: string = "";
+  status: number = 0;
   created: string ="";
+  img: string;
 
 }

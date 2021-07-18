@@ -1,2 +1,30 @@
-<p>class-assignment-list works!</p>
+<div class="container" *ngFor="let a of fassignments ">
+ <h1>Assignments</h1>
 
+
+    <!-- <div class="card">
+    <div class="card-body">
+       {{a.description}}
+    </div>
+  </div> -->
+  <!-- <div class="card">
+    <div class="card-header">
+
+    </div>
+    <div class="card-body">
+      <h1 class="card-title">{{a.title}}</h1>
+      <p class="card-text">{{a.description}}</p>
+      <button  (clik)="gotoEditAsig(a)" class="btn btn-primary">Entrar</button>
+    </div>
+  </div> -->
+
+
+  <div class="card" >
+    <div class="card-body">
+      <h2 class="card-title">{{a.title}}</h2>
+      <p class="card-text">{{a.description}}</p>
+      <button (click)="gotoEditAsig(a)" >Entrar</button>
+      <!-- <a href="#" class="card-link">Another link</a> -->
+    </div>
+  </div>
+</div>

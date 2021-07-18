@@ -1,4 +1,20 @@
-<p>user-class-list works!</p>
-<ul  *ngFor="let c of ucls " >
-  <button (click)="gotoAssignment(c)" >{{c.classname}}</button>
-</ul>
+
+ <div class="row"  *ngFor="let cl of ucls ">
+  <div class="col-md-4" style="margin: 10px;" >
+    <div class="card">
+      <img class="card-img-top" src={{cl.img}} />
+      <!-- <img class="card-img-top"  src="https://aup.imgix.net/user_images/164014/private-lessons-math-analysis-algebra-probability-statistics-arabic-1616583057.jpg?ch=Width,DPR&fit=crop&crop=faces&auto=format,compress&w=300&h=300&dpr=2.625&frame=1"> -->
+      <div class="card-header">
+       {{cl.classname}}
+      </div>
+      <div class="card-body">
+        <div class="progress">
+          <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">30%</div>
+        </div>
+        <blockquote class="blockquote mb-0">
+          <p></p>
+          <button (click)="gotoAssignment(cl)" >Entrar</button>
+        </blockquote>
+      </div>
+    </div>
+  </div>

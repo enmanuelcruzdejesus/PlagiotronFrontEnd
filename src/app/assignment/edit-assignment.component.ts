@@ -4,6 +4,9 @@ import { ClassAssigment } from '../model/classassignment';
 import { AssignmentSubmissionService } from '../service/assignment-submission.service';
 import { map } from 'rxjs/operators';
 import { UserService } from '../service/user.service';
+import { AssignmentService } from '../service/assignment.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Assignment } from '../model/assignment';
 
 @Component({
   selector: 'app-edit-assignment',
@@ -15,13 +18,27 @@ export class EditAssignmentComponent implements OnInit {
 
   cs: ClassAssigment[] = [];
 
-
+  current_assign: Assignment = new Assignment();
   form: FormGroup = new FormGroup({});
 
 
-  constructor(private service : AssignmentSubmissionService, private userService: UserService) { }
+  constructor(private aservice: AssignmentService, private service : AssignmentSubmissionService, private userService: UserService,
+    private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
+
+    this.route.queryParams.subscribe(params => {
+
+
+      this.current_assign.assignmentid = params.assignmentid;
+      this.current_assign.title = params.title;
+      this.current_assign.description = params.description;
+      this.current_assign.status = params.status;
+
+
+     });
+
+
 
     this.form = new FormGroup({
       file: new FormControl()
