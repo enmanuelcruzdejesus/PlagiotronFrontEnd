@@ -4,6 +4,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
 import { Content } from '@angular/compiler/src/render3/r3_ast';
 import { AngularEditorComponent, AngularEditorConfig } from '@kolkov/angular-editor';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 
@@ -17,7 +18,7 @@ export class SimilaritySubmissionReportComponent implements OnInit {
 
   docText: string = "hello";
   similarityResult : any;
-  docFile: string = "orig_taske.txt";
+  docFile: string;
   selectedDocTxt: string= "";
   selectedFile: string = "doc1";
   selectedIndex: number = 0;
@@ -73,9 +74,22 @@ export class SimilaritySubmissionReportComponent implements OnInit {
 
 
 
-  constructor(private service: AssignmentSubmissionService) { }
+  constructor(private service: AssignmentSubmissionService,private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
+
+    //getting docfile
+    this.route.queryParams.subscribe(params => {
+
+
+     this.docFile = params.docfile;
+     console.log("entro");
+     console.log(this.docFile);
+
+
+     });
+
+
 
     this.service.getdocumentContent(this.docFile).subscribe((res: any)=>
     {
