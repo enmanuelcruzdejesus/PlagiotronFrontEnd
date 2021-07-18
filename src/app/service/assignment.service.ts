@@ -9,7 +9,7 @@ export class AssignmentService {
 
   private dbPath = "/assignments"
 
-  private  cs : AngularFireList<Assignment>;
+
 
   private assignments: AngularFireList<Assignment>;
 
@@ -27,19 +27,24 @@ export class AssignmentService {
     return this.db.list(this.dbPath,ref => ref.orderByChild('assignmentid').equalTo(value));
   }
 
+  getByTitle(value: string): AngularFireList<any>{
+
+    return this.db.list(this.dbPath,ref => ref.orderByChild('title').equalTo(value));
+  }
+
   create(c: Assignment){
-    this.cs.push(c).then(value =>{
+    this.assignments.push(c).then(value =>{
       console.log(value);
     });
   }
 
   update(key: string, value: any): Promise<void>{
-    return this.cs.update(key,value);
+    return this.assignments.update(key,value);
 
   }
 
   delete(key: string): Promise<void>{
-    return this.cs.remove(key);
+    return this.assignments.remove(key);
   }
 
 

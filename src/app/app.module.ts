@@ -35,6 +35,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 
 import { FileUploadModule } from 'ng2-file-upload';
+import { EditAssignmentPComponent } from './assignment/edit-assignment-p.component';
 
 
 
@@ -55,7 +56,8 @@ import { FileUploadModule } from 'ng2-file-upload';
     CreateAssignmentComponent,
     EditAssignmentComponent,
     AssignmentSubmissionListComponent,
-    SimilaritySubmissionReportComponent
+    SimilaritySubmissionReportComponent,
+    EditAssignmentPComponent
   ],
   imports: [
     BrowserModule,

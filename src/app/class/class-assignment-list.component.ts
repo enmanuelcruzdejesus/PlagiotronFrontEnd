@@ -36,16 +36,13 @@ export class ClassAssignmentListComponent implements OnInit {
       this.current_class = params["classid"];
       var x = Number(this.current_class);
       this.getAssignmentByClass(x);
-      this.getAllAssignments();
+      this.fassignments =  this.getAllAssignments();
 
       console.log(this.current_class);
 
      });
 
   }
-
-
-
 
 
 
@@ -64,6 +61,7 @@ export class ClassAssignmentListComponent implements OnInit {
   }
 
   getAllAssignments(){
+    let result: Assignment[] = [];
     this.aservice.getAll().snapshotChanges().pipe(
       map(changes =>
         changes.map(c =>
@@ -80,22 +78,45 @@ export class ClassAssignmentListComponent implements OnInit {
            for(let j =0; j < this.clsa.length; j++){
              var b = this.clsa[j].assignmentid;
              if(a.assignmentid == b){
-              this.fassignments.push(a);
+              // this.fassignments.push(a);
+              result.push(a);
              }
            }
         }
 
     });
+    return result;
   }
 
-  Filter(value: string){}
+
+  getUserAssignments() {
+    this.aservice.getByTitle(this.searchTerm).snapshotChanges().pipe(
+      map(changes =>
+        changes.map(c =>
+          ({ key: c.payload.key, ...c.payload.val() })
+        )
+      )
+    ).subscribe(data => {
+      this.fassignments = data;
+      console.log("printing");
+    });
+  }
+
+
+  Filter(value: string){
+    if(value != undefined && value != null && value != "")
+    this.getUserAssignments();
+    else{
+      this.fassignments = this.getAllAssignments();
+    }
+  }
 
 
   gotoEditAsig(c: Assignment){
 
       let navigationExtras: NavigationExtras = {
         queryParams: {
-
+            "key": c.key,
             "assignmentid": c.assignmentid,
             "title": c.title,
             "description": c.description,
@@ -121,7 +142,7 @@ export class ClassAssignmentListComponent implements OnInit {
 
       }
     };
-    this.router.navigate(["edit-assignment"], navigationExtras);
+    this.router.navigate(["edit-assignment-p"], navigationExtras);
 
   }
 
