@@ -38,6 +38,7 @@ export class CreateClassComponent implements OnInit {
 
   cancelPost(){
     this.c = new Class();
+    this.router.navigate(['/user-class-list']);
   }
 
   save(){
@@ -45,7 +46,7 @@ export class CreateClassComponent implements OnInit {
     let id  = this.cs.length + 1;
     this.c.classid = id;
     this.service.create(this.c);
-    this.router.navigate(['']);
+    this.router.navigate(['/user-class-list']);
   }
 
 

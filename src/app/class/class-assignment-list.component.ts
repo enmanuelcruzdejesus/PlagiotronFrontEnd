@@ -6,6 +6,7 @@ import { ClassassignmentService } from '../service/classassignment.service';
 import { map } from 'rxjs/operators';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { Class } from '../model/class';
+import { ClassService } from '../service/class.service';
 
 @Component({
   selector: 'app-class-assignment-list',
@@ -21,8 +22,9 @@ export class ClassAssignmentListComponent implements OnInit {
   current_class : string;
   c: Class ;
   current_assig: Assignment;
+  searchTerm: string = "";
 
-  constructor(private service: ClassassignmentService, private aservice: AssignmentService,private route: ActivatedRoute, private router: Router) {
+  constructor(private service: ClassassignmentService, private aservice: AssignmentService,private clservice: ClassService,private route: ActivatedRoute, private router: Router) {
 
 
 
@@ -40,13 +42,13 @@ export class ClassAssignmentListComponent implements OnInit {
 
      });
 
-
-
-
-
-
-
   }
+
+
+
+
+
+
 
   getAssignmentByClass(value: number) {
     this.service.getByClass2(value).snapshotChanges().pipe(
@@ -70,8 +72,7 @@ export class ClassAssignmentListComponent implements OnInit {
       )
     ).subscribe(data => {
         this.assigments = data;
-        // console.log(this.assigments);
-        // console.log(this.clsa);
+
 
         for(let i =0; i< this.assigments.length; i++){
            var  a = this.assigments[i];
@@ -87,22 +88,11 @@ export class ClassAssignmentListComponent implements OnInit {
     });
   }
 
+  Filter(value: string){}
+
 
   gotoEditAsig(c: Assignment){
-    // this.aservice.getById(c.assignmentid).snapshotChanges().pipe(
-    //   map(changes =>
-    //     changes.map(c =>
-    //       ({ key: c.payload.key, ...c.payload.val() })
-    //     )
-    //   )
-    // ).subscribe(data => {
-    //    this.current_assig = data[0];
-    //    console.log(this.current_assig);
 
-
-    // });
-
-      console.log(c);
       let navigationExtras: NavigationExtras = {
         queryParams: {
 
@@ -119,6 +109,30 @@ export class ClassAssignmentListComponent implements OnInit {
 
   }
 
+  update(c: Assignment){
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+
+          "assignmentid": c.assignmentid,
+          "title": c.title,
+          "description": c.description,
+          "duedate": c.duedate,
+          "status": c.status
+
+      }
+    };
+    this.router.navigate(["edit-assignment"], navigationExtras);
+
+  }
+
+
+  create(){
+    this.router.navigate(["create-assignment"])
+  }
+
+  delete(task: Assignment) {
+    this.aservice.delete(task.key);
+  }
 
 
 }

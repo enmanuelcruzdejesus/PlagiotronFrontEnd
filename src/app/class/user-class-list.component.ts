@@ -19,6 +19,8 @@ export class UserClassListComponent implements OnInit {
   cls : Class[] = [];
   ucls: Class[] = [];
   currentUser: User;
+  searchTerm: string = "";
+
   constructor(private router: Router,private userService: UserService,private enrollmentService: EnrollmentService, private cs : ClassService) { }
 
   ngOnInit(): void {
@@ -27,6 +29,18 @@ export class UserClassListComponent implements OnInit {
 
     this.getEnrollmentByUser();
     //getting all classes
+    this.ucls =  this.getUserClass();
+
+
+
+
+
+
+
+  }
+
+  getUserClass(){
+    let result : Class[] = [];
     this.cs.getAll().snapshotChanges().pipe(
       map(changes =>
         changes.map(c =>
@@ -44,25 +58,47 @@ export class UserClassListComponent implements OnInit {
 
              var e = this.enrollments[j];
              if(c.classid == e.classid)
-               this.ucls.push(c);
+               result.push(c);
 
            }
 
        }
 
-       console.log(this.userService.getCurrentUser().userid);
-       console.log(this.cls);
-       console.log(this.ucls);
+
 
     });
 
-
-
-
-
-
+    return result;
 
   }
+
+
+  getClassByName() {
+    this.cs.getClassByName(this.searchTerm).snapshotChanges().pipe(
+      map(changes =>
+        changes.map(c =>
+          ({ key: c.payload.key, ...c.payload.val() })
+        )
+      )
+    ).subscribe(data => {
+      this.ucls = data;
+      console.log("printing");
+    });
+  }
+
+
+  Filter(value: string){
+    if(value != undefined && value != null && value != "")
+    this.getClassByName();
+    else{
+      this.ucls = this.getUserClass();
+    }
+  }
+
+  create(){
+    this.router.navigate(["create-class"])
+  }
+
 
 
 getEnrollmentByUser() {
@@ -89,6 +125,27 @@ gotoAssignment(c: Class){
   };
 
   this.router.navigate(["class-assignment-list"], navigationExtras);
+}
+
+update(c: Class){
+  let navigationExtras: NavigationExtras = {
+    queryParams: {
+        "key": c.key,
+        "classid": c.classid,
+        "classname": c.classname,
+        "subjectarea": c.subjectarea,
+        "createdbyuser": this.userService.getCurrentUser(),
+        "status": c.status,
+        "created": c.created
+    }
+  };
+
+this.router.navigate(["edit-class"], navigationExtras);
+}
+
+
+delete(task: Class) {
+  this.cs.delete(task.key);
 }
 
 

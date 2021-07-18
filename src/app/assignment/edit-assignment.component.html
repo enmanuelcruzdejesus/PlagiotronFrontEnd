@@ -37,7 +37,7 @@
 
       <div class="form-group" style="margin-top: 30px;">
           <label for="file" class="control-label">Add File: </label>
-          <input id="file" name="file" type="file" formControlName="file" (change)="uploadFile($event)">
+          <input id="file"  #takeInput name="file" type="file" formControlName="file" (change)="uploadFile($event)">
       </div>
 
 

@@ -27,6 +27,20 @@ export class AssignmentService {
     return this.db.list(this.dbPath,ref => ref.orderByChild('assignmentid').equalTo(value));
   }
 
+  create(c: Assignment){
+    this.cs.push(c).then(value =>{
+      console.log(value);
+    });
+  }
+
+  update(key: string, value: any): Promise<void>{
+    return this.cs.update(key,value);
+
+  }
+
+  delete(key: string): Promise<void>{
+    return this.cs.remove(key);
+  }
 
 
 

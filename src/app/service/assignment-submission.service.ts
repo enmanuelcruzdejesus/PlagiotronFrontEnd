@@ -28,6 +28,8 @@ export class AssignmentSubmissionService {
       this.submissions = db.list(this.dbPath);
    }
 
+
+
   createAssignmentSubmission(formData: FormData): Observable<any>{
 
     return this.httpClient.post<any>(`${HttpClientHelper.baseURL}/success`,formData);
@@ -38,11 +40,18 @@ export class AssignmentSubmissionService {
     return this.httpClient.get<string>(`${HttpClientHelper.baseURL}/getdocumentContent/`+id , this.httpOptions);
 
   }
+  downloadDoc(id: string): Observable<any>{
+
+    return this.httpClient.get<string>(`${HttpClientHelper.baseURL}/download/`+id , this.httpOptions);
+
+  }
 
   getSubmissionSimilarity(id: string): Observable<any>{
     return this.httpClient.get<any>(`${HttpClientHelper.baseURL}/similarityReport/`+id,this.httpOptions);
 
   }
+
+
 
   create(c: AssignmentSubmission){
     this.submissions.push(c).then(value =>{

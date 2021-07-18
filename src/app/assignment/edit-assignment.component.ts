@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ClassAssigment } from '../model/classassignment';
 import { AssignmentSubmissionService } from '../service/assignment-submission.service';
@@ -31,6 +31,13 @@ export class EditAssignmentComponent implements OnInit {
   form: FormGroup = new FormGroup({});
   docfile: string= "";
   comments: string;
+  file: any;
+
+  @ViewChild('takeInput', {static: false})
+
+// this InputVar is a reference to our input.
+
+  InputVar: ElementRef;
 
 
   constructor(private aservice: AssignmentService, private service : AssignmentSubmissionService, private userService: UserService,
@@ -65,11 +72,18 @@ export class EditAssignmentComponent implements OnInit {
 
 
 
+    this.getClassAssignment();
+
+
+
+
+
     this.form = new FormGroup({
-      file: new FormControl()
+      file: new FormControl(this.file)
     });
 
-    this.getClassAssignment();
+
+
 
 
 

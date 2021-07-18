@@ -1,21 +1,55 @@
 <div class="container">
-  <div class="row" *ngFor="let cl of ucls ">
-    <div class="col-md-4" style="margin: 10px;" >
-      <div class="card">
-         <img class="card-img-top" src={{cl.img}} />
-            <div class="card-header">
-            {{cl.classname}}
-            </div>
-            <div class="card-body">
-              <div class="progress">
-                <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">30%</div>
-              </div>
-              <blockquote class="blockquote mb-0">
-                <p></p>
-                <button (click)="gotoAssignment(cl)" >Entrar</button>
-              </blockquote>
-            </div>
-      </div>
+
+
+  <div  class="mainmenu container">
+    <div class="leftmenu">
+        <input id="search" #search placeholder="Search" [(ngModel)] = "searchTerm" type="text" (keyup.enter)="Filter(search.value)" >
+        <button id="buttonSearch" (click)= "Filter(search.value)" >Search</button>
     </div>
-  </div>
+    <div class="rightmenu">
+        <button id="postContactButton"  class="btn btn-success btn-md" (click)="create()" >Add new Record</button>
+    </div>
+</div>
+
+<table class="table">
+  <thead>
+      <tr>
+          <th scope="col"><h2>Clases</h2></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr >
+          <td>
+            <div class="row" *ngFor="let cl of ucls ">
+              <div class="col-md-4" style="margin: 10px;" >
+                <div class="card">
+                   <img class="card-img-top" src={{cl.img}} />
+                      <div class="card-header">
+                      {{cl.classname}}
+                      </div>
+                      <div class="card-body">
+                        <div class="progress">
+                          <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">30%</div>
+                        </div>
+                        <blockquote class="blockquote mb-0">
+                          <p></p>
+                          <button  class="btn btn-primary bt-sm"  (click)="gotoAssignment(cl)" >Entrar</button>
+                          <button class="btn btn-primary bt-sm"  (click)="update(cl)">Update</button>
+                           <button class="btn btn-danger bt-sm" (click)="delete(cl)">Delete</button>
+
+                        </blockquote>
+                      </div>
+                </div>
+              </div>
+
+            </div>
+
+
+          </td>
+
+
+  </tbody>
+</table>
+
+
 </div>

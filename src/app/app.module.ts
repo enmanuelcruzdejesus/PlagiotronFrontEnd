@@ -34,6 +34,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AngularEditorModule } from '@kolkov/angular-editor';
 
+import { FileUploadModule } from 'ng2-file-upload';
+
+
+
 
 
 @NgModule({
@@ -64,7 +68,8 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
     HttpClientModule,
     BrowserAnimationsModule,
     MatInputModule,
-    AngularEditorModule
+    AngularEditorModule,
+    FileUploadModule
 
   ],
   providers: [UserService,AuthGuard],

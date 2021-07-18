@@ -1,30 +1,43 @@
-<div class="container" *ngFor="let a of fassignments ">
- <h1>Assignments</h1>
 
 
-    <!-- <div class="card">
-    <div class="card-body">
-       {{a.description}}
-    </div>
-  </div> -->
-  <!-- <div class="card">
-    <div class="card-header">
 
-    </div>
-    <div class="card-body">
-      <h1 class="card-title">{{a.title}}</h1>
-      <p class="card-text">{{a.description}}</p>
-      <button  (clik)="gotoEditAsig(a)" class="btn btn-primary">Entrar</button>
-    </div>
-  </div> -->
+  <div class="container" >
 
-
-  <div class="card" >
-    <div class="card-body">
-      <h2 class="card-title">{{a.title}}</h2>
-      <p class="card-text">{{a.description}}</p>
-      <button (click)="gotoEditAsig(a)" >Entrar</button>
-      <!-- <a href="#" class="card-link">Another link</a> -->
-    </div>
+    <div  class="mainmenu container">
+      <div class="leftmenu">
+          <input id="search" #search placeholder="Search" [(ngModel)] = "searchTerm" type="text" (keyup.enter)="Filter(search.value)" >
+          <button id="buttonSearch" (click)= "Filter(search.value)" >Search</button>
+      </div>
+      <div class="rightmenu">
+          <button id="postContactButton"  class="btn btn-success btn-md" (click)="create()" >Add new Record</button>
+      </div>
   </div>
-</div>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col"><h2>Asignaciones</h2></th>
+    </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td *ngFor="let a of fassignments">
+          <div class="card" >
+            <div class="card-body">
+              <h2 class="card-title">{{a.title}}</h2>
+              <p class="card-text">{{a.description}}</p>
+
+              <button  class="btn btn-primary bt-sm"  (click)="gotoEditAsig(a)" >Entrar</button>
+              <button class="btn btn-primary bt-sm"  (click)="update(a)">Update</button>
+               <button class="btn btn-danger bt-sm" (click)="delete(a)">Delete</button>
+
+              <!-- <a href="#" class="card-link">Another link</a> -->
+            </div>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+
+
