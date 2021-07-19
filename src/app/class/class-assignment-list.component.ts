@@ -10,6 +10,7 @@ import { ClassService } from '../service/class.service';
 import { User } from '../model/user';
 import { UserService } from '../service/user.service';
 
+
 @Component({
   selector: 'app-class-assignment-list',
   templateUrl: './class-assignment-list.component.html',

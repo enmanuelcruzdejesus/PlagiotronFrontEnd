@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FileUploader } from 'ng2-file-upload';
+import { AssignmentSubmission } from '../model/assignmentsubmission';
+import { AssignmentSubmissionService } from '../service/assignment-submission.service';
+import { map } from 'rxjs/operators';
+import { NavigationExtras, Router } from '@angular/router';
 
 // const URL = '/api/';
 const URL = 'api/success?';
@@ -12,54 +16,45 @@ const URL = 'api/success?';
 })
 export class AssignmentSubmissionListComponent implements OnInit {
 
-  uploader:FileUploader;
-  hasBaseDropZoneOver:boolean;
-  hasAnotherDropZoneOver:boolean;
-  response:string;
+  allsubs: AssignmentSubmission[] = [];
 
 
+  constructor(private service : AssignmentSubmissionService,private router: Router) {
 
-  constructor() {
-
-    this.uploader = new FileUploader({
-      url: URL,
-      disableMultipart: true, // 'DisableMultipart' must be 'true' for formatDataFunction to be called.
-      formatDataFunctionIsAsync: true,
-      formatDataFunction: async (item) => {
-        return new Promise( (resolve, reject) => {
-          resolve({
-            name: item._file.name,
-            length: item._file.size,
-            contentType: item._file.type,
-            date: new Date()
-          });
-        });
-      }
-    });
-
-    this.uploader.onBeforeUploadItem = (item) => {
-      item.withCredentials = false;
-    };
-
-    this.hasBaseDropZoneOver = false;
-    this.hasAnotherDropZoneOver = false;
-
-    this.response = '';
-
-    this.uploader.response.subscribe( res => this.response = res );
 
   }
 
 
   ngOnInit(): void {
+    this.getAll();
   }
 
-  public fileOverBase(e:any):void {
-    this.hasBaseDropZoneOver = e;
+
+  getAll() {
+    this.service.getAll().snapshotChanges().pipe(
+      map(changes =>
+        changes.map(c =>
+          ({ key: c.payload.key, ...c.payload.val() })
+        )
+      )
+    ).subscribe(data => {
+      this.allsubs = data;
+
+      console.log(this.allsubs);
+    });
   }
 
-  public fileOverAnother(e:any):void {
-    this.hasAnotherDropZoneOver = e;
+  showResults(value: AssignmentSubmission){
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+
+         "docfile":value.docfile
+      }
+    };
+
+    this.router.navigate(["similarity-submission-report"], navigationExtras);
+
   }
+
 
 }

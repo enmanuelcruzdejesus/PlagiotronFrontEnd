@@ -156,5 +156,8 @@ showPanel(){
     return false;
 }
 
+gotoAllSubs(){
+  this.router.navigate(['assignment-submission-list']);
+}
 
 }

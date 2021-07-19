@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
 import { User } from '../model/user';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,7 @@ export class UserService {
   private currentUser : User = new User();
 
   private isLoggedIn :boolean  = false;
+
   constructor(private firebaseAuth : AngularFireAuth, private db: AngularFireDatabase ) {
       this.users = this.db.list(this.dbPath);
   }
@@ -30,12 +32,32 @@ export class UserService {
 
   }
 
+  getUserById(value: string): AngularFireList<any>{
+
+    return this.db.list(this.dbPath,ref => ref.orderByChild('userid').equalTo(value));
+  }
+
+
 
   getCurrentUser(): User{
     var j  = JSON.parse(localStorage.getItem('user'));
+    console.log(j);
     var u = new User();
-    u.userid =j.uid;
-    u.email = j.email;
+
+    if(j!= null || j!= undefined){
+
+      u.userid = j.userid;
+      u.email = j.email;
+      u.role = j.role;
+
+
+
+
+
+
+    }
+    console.log("printing user from user service");
+    console.log(u);
 
     return u;
 
@@ -44,8 +66,29 @@ export class UserService {
   async login(email: string, password: string){
     await this.firebaseAuth.signInWithEmailAndPassword(email,password).then(res=>{
       this.isLoggedIn = true;
-      console.log(res);
-      localStorage.setItem('user',JSON.stringify(res.user));
+
+      var user = res.user;
+      console.log(res.user);
+
+      if(user!= undefined || user != null){
+        this.getUserById(user.uid).snapshotChanges().pipe(
+          map(changes =>
+            changes.map(c =>
+              ({ key: c.payload.key, ...c.payload.val() })
+            )
+          )
+        ).subscribe(data => {
+           var u = data[0];
+
+          localStorage.setItem('user',JSON.stringify(u));
+
+
+        });
+
+      }
+
+
+
 
 
     });
