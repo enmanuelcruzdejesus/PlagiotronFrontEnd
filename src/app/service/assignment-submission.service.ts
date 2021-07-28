@@ -34,7 +34,7 @@ export class AssignmentSubmissionService {
 
   createAssignmentSubmission(formData: FormData): Observable<any>{
 
-    return this.httpClient.post<any>(`${HttpClientHelper.baseURL}/success`,formData);
+    return this.httpClient.post<any>(`${HttpClientHelper.baseURL}/uploadFile`,formData);
 
   }
   getdocumentContent(id: string): Observable<string>{

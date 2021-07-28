@@ -5,6 +5,10 @@ import {MatInputModule} from '@angular/material/input';
 import { Content } from '@angular/compiler/src/render3/r3_ast';
 import { AngularEditorComponent, AngularEditorConfig } from '@kolkov/angular-editor';
 import { ActivatedRoute, Router } from '@angular/router';
+import { SubmissionsimilarityService } from '../service/submissionsimilarity.service';
+import { SubmissionSimilarities } from '../model/submissionsimilarities';
+import { map } from 'rxjs/operators';
+import { SubmissionSimilarity } from '../model/submissionsimilarity';
 
 
 
@@ -70,11 +74,12 @@ export class SimilaritySubmissionReportComponent implements OnInit {
 };
 
  random_color_doc: string[] = [];
- splitDocText : string[] = []
+ splitDocText : string[] = [];
+ submission_sim : SubmissionSimilarity;
 
 
 
-  constructor(private service: AssignmentSubmissionService,private route: ActivatedRoute, private router: Router) { }
+  constructor(private service: AssignmentSubmissionService,private s: SubmissionsimilarityService ,private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
 
@@ -83,9 +88,7 @@ export class SimilaritySubmissionReportComponent implements OnInit {
 
 
      this.docFile = params.docfile;
-     console.log("entro");
-     console.log(this.docFile);
-
+    
 
      });
 
@@ -94,12 +97,17 @@ export class SimilaritySubmissionReportComponent implements OnInit {
     this.service.getdocumentContent(this.docFile).subscribe((res: any)=>
     {
        this.docText = res.content;
-        console.log(res);
 
     });
 
+  
+
+    // this.getAll();
+
     this.service.getSubmissionSimilarity(this.docFile).subscribe((res)=>{
+
       this.similarityResult = res;
+     
       this.selectedDocTxt = res.docs[0].doc_content;
 
       for(let i =0; i< this.similarityResult.docs.length; i++){
@@ -108,10 +116,16 @@ export class SimilaritySubmissionReportComponent implements OnInit {
 
       this.splitDocText =  this.docText.split(".");
 
+
+      
       this.matchedSentences();
+
+      
 
 
     });
+
+    
 
 
 
@@ -142,9 +156,11 @@ export class SimilaritySubmissionReportComponent implements OnInit {
 
             //searching for the matched sentences of current doc
             for(let x =0; x < similar_sentences.length; x++){
-              var s = similar_sentences[x].u_sentence;
+              var s = String(similar_sentences[x].u_sentence);
+              s = s.substring(0,s.length-1);
+              
 
-              if(element === s){
+              if(element.trim().normalize() === s.trim().normalize()){
                 result =  result + "<p><span style='color: "+doc_color+";'>"+element+"</span></p>"
 
                     continue outer_loop;
@@ -167,31 +183,45 @@ export class SimilaritySubmissionReportComponent implements OnInit {
   }
 
   onChange(event: Number) {
+    this.matchedSentences()
     var index = Number(event);
     console.log(event);
     var x  = this.similarityResult.docs[index].doc_content;
     this.selectedDocTxt = x;
+   
     var similar_sentences = this.similarityResult.docs[index].similar_sentences;
+    console.log("printing similar sentences");
+    console.log(similar_sentences);
+
     var splitSelectedDocText = this.selectedDocTxt.split(".");
     let result = "";
 
 
+
     var doc_color = this.random_color_doc[index];
 
+   
 
-    //repo document
+   // repo document
     outer_loop:
     for(let i =0; i< splitSelectedDocText.length; i++){
-        var element = splitSelectedDocText[i];
-
+        var element = splitSelectedDocText[i]
+      
         for(let x =0; x < similar_sentences.length; x++){
-          var s = similar_sentences[x].r_sentence;
+          var s = String(similar_sentences[x].r_sentence);
+          s = s.substring(0,s.length-1);
 
+          
+        
 
-          if(element === s){
+          if(element.trim().normalize() === s.trim().normalize()){
+            // console.log("printing element");
+            // console.log(element);
+            // console.log("printing r sentence");
+            // console.log(s);
                  result =  result + "<p><span style='color: "+doc_color+";'>"+element+"</span></p>"
                 // result =  result + "<p><style ='color: red';>"+element+"</span></p>"
-
+                //  console.log("coloreando palabra")
                  continue outer_loop;
                }
 
@@ -205,6 +235,35 @@ export class SimilaritySubmissionReportComponent implements OnInit {
 
   }
 
+  getAll() {
+    this.s.getAll().snapshotChanges().pipe(
+      map(changes =>
+        changes.map(c =>
+          ({ key: c.payload.key, ...c.payload.val() })
+        )
+      )
+    ).subscribe(data => {
+      
+      this.submission_sim = data[0];
+      this.similarityResult = data;
+
+      console.log("printing");
+
+      console.log(this.submission_sim);
+     
+      this.selectedDocTxt = this.submission_sim.docs[0].doc_content;
+
+      for(let i =0; i< this.submission_sim.docs.length; i++){
+        this.random_color_doc.push(this.getRandomColor());
+      }
+
+      this.splitDocText =  this.docText.split(".");
+
+      this.matchedSentences();
+      
+      
+    });
+  }
 
    getRandomColor() {
     var letters = '0123456789ABCDEF';
